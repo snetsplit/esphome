@@ -199,7 +199,9 @@ ClimateCall &ClimateCall::set_preset(ClimatePreset preset) {
   return *this;
 }
 ClimateCall &ClimateCall::set_preset(const std::string &preset) {
-  if (str_equals_case_insensitive(preset, "ECO")) {
+  if (str_equals_case_insensitive(preset, "NONE")) {
+    this->set_preset(CLIMATE_PRESET_NONE);
+  else if (str_equals_case_insensitive(preset, "ECO")) {
     this->set_preset(CLIMATE_PRESET_ECO);
   } else if (str_equals_case_insensitive(preset, "AWAY")) {
     this->set_preset(CLIMATE_PRESET_AWAY);
