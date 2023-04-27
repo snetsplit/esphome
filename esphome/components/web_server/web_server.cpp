@@ -465,7 +465,10 @@ void WebServer::handle_switch_request(AsyncWebServerRequest *request, const UrlM
 std::string WebServer::button_json(button::Button *obj, JsonDetail start_config) {
   return json::build_json(
       [obj, start_config](JsonObject root) { 
-          set_json_icon_state_value(root, obj, "button-" + obj->get_object_id(), value, value, start_config);
+            set_json_id(root, obj, "button-" + obj->get_object_id(), start_config);
+            if (start_config == DETAIL_ALL) {
+                  root["icon"] = (obj)->get_icon();
+            }
       });
 }
 
