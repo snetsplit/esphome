@@ -512,6 +512,7 @@ void WebServer::on_fan_update(fan::Fan *obj) { this->events_.send(this->fan_json
 std::string WebServer::fan_json(fan::Fan *obj, JsonDetail start_config) {
   return json::build_json([obj, start_config](JsonObject root) {
     set_json_state_value(root, obj, "fan-" + obj->get_object_id(), obj->state ? "ON" : "OFF", obj->state, start_config);
+    root["icon"] = (obj)->get_icon();
     const auto traits = obj->get_traits();
     if (traits.supports_speed()) {
       root["speed_level"] = obj->speed;
@@ -647,6 +648,7 @@ std::string WebServer::light_json(light::LightState *obj, JsonDetail start_confi
 
     light::LightJSONSchema::dump_json(*obj, root);
     if (start_config == DETAIL_ALL) {
+      root["icon"] = (obj)->get_icon();
       JsonArray opt = root.createNestedArray("effects");
       opt.add("None");
       for (auto const &option : obj->get_effects()) {
@@ -707,7 +709,7 @@ std::string WebServer::cover_json(cover::Cover *obj, JsonDetail start_config) {
     set_json_state_value(root, obj, "cover-" + obj->get_object_id(), obj->is_fully_closed() ? "CLOSED" : "OPEN",
                          obj->position, start_config);
     root["current_operation"] = cover::cover_operation_to_str(obj->current_operation);
-
+    root["icon"] = (obj)->get_icon();
     if (obj->get_traits().get_supports_tilt())
       root["tilt"] = obj->tilt;
   });
@@ -809,6 +811,7 @@ std::string WebServer::select_json(select::Select *obj, const std::string &value
   return json::build_json([obj, value, start_config](JsonObject root) {
     set_json_state_value(root, obj, "select-" + obj->get_object_id(), value, value, start_config);
     if (start_config == DETAIL_ALL) {
+      root["icon"] = (obj)->get_icon();
       JsonArray opt = root.createNestedArray("option");
       for (auto &option : obj->traits.get_options()) {
         opt.add(option);
