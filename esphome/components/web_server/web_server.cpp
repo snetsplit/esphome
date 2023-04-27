@@ -755,6 +755,7 @@ std::string WebServer::number_json(number::Number *obj, float value, JsonDetail 
       root["max_value"] = obj->traits.get_max_value();
       root["step"] = obj->traits.get_step();
       root["mode"] = (int) obj->traits.get_mode();
+      root["icon"] = (obj)->get_icon();
     }
     if (isnan(value)) {
       root["value"] = "\"NaN\"";
