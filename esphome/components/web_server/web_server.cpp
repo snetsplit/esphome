@@ -908,6 +908,7 @@ std::string WebServer::climate_json(climate::Climate *obj, JsonDetail start_conf
     char __buf[16];
 
     if (start_config == DETAIL_ALL) {
+      root["icon"] = (obj)->get_icon();
       JsonArray opt = root.createNestedArray("modes");
       for (climate::ClimateMode m : traits.get_supported_modes())
         opt.add(PSTR_LOCAL(climate::climate_mode_to_string(m)));
