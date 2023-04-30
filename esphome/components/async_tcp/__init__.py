@@ -18,5 +18,9 @@ async def to_code(config):
         # https://github.com/esphome/AsyncTCP/blob/master/library.json
         cg.add_library("esphome/AsyncTCP-esphome", "1.2.2")
     elif CORE.is_esp8266:
-        # https://github.com/OttoWinter/ESPAsyncTCP
-        cg.add_library("ESPAsyncTCP-esphome","https://github.com/HeMan/ESPAsyncTCP/archive/refs/heads/ipv6.zip")
+        # https://github.com/OttoWinter/ESPAsyncTCP\
+        cg.add_library(
+                name="ESPAsyncTCP",
+                repository="https://github.com/HeMan/ESPAsyncTCP",
+                version="1.2.3",
+            )
